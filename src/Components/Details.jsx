@@ -9,7 +9,7 @@ import CastCarouel from "./CastCarouel";
 const Details = () => {
   const { id } = useParams();
 
-  const { data, isFetching, isLoading, isError } = useGetMoviesDetailsQuery(
+  const { data, isFetching } = useGetMoviesDetailsQuery(
     { id, type: "movie" },
     { skip: false }
   );
