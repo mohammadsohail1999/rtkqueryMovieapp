@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Badge, HStack, Select } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import CardSkeleton from "../Components/CardSkeleton";
 import MovieCard from "../Components/MovieCard";
 import { useGetMoviesorTVQuery } from "../service/MovieApi";
@@ -41,6 +41,8 @@ const MovieHomePage = () => {
   const [filter, setFilter] = useState("popular");
   const [category, setCategory] = useState("Popular");
   const [type, setType] = useState("movie");
+
+  const resultContainerRef = useRef(null);
 
   const {
     data: popularMovies,
@@ -139,6 +141,7 @@ const MovieHomePage = () => {
               "repeat(4,1fr)",
             ]}
             gap={6}
+            ref={resultContainerRef}
           >
             {popularMovies?.results.map((el) => {
               return (
@@ -166,6 +169,7 @@ const MovieHomePage = () => {
           <Button
             onClick={() => {
               setPage((prev) => prev - 1);
+              window.scrollTo(0, resultContainerRef.current.offsetTop || 0);
             }}
             disabled={page === 1}
             mx="4"
@@ -175,6 +179,8 @@ const MovieHomePage = () => {
           <Button
             onClick={() => {
               setPage((prev) => prev + 1);
+
+              window.scrollTo(0, resultContainerRef.current.offsetTop || 0);
             }}
           >
             Next

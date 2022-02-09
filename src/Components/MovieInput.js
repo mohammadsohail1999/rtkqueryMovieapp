@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Input, Select } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSearchMoviesMutation } from "../service/MovieApi";
 import CardSkeleton from "./CardSkeleton";
 import MovieCard from "./MovieCard";
@@ -9,6 +9,7 @@ const MovieInput = () => {
   const [term, setTerm] = useState("");
   const [page, setPage] = useState(1);
   const [pageReset, setPageReset] = useState(false);
+  const resultContainerRef = useRef(null);
 
   const [searchMovie, { isLoading, data: searchData }] =
     useSearchMoviesMutation();
@@ -120,6 +121,7 @@ const MovieInput = () => {
                 }
                 return prev;
               });
+              window.scrollTo(0, resultContainerRef.current.offsetTop || 0);
             }}
             disabled={page === 1}
             mx="4"
@@ -129,6 +131,7 @@ const MovieInput = () => {
           <Button
             onClick={() => {
               setPage((prev) => prev + 1);
+              window.scrollTo(0, resultContainerRef.current.offsetTop || 0);
             }}
           >
             Next
