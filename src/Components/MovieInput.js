@@ -52,6 +52,10 @@ const MovieInput = () => {
           placeholder="Search Movies or TV shows"
           onChange={(e) => {
             setTerm(e.target.value);
+            if (page > 1) {
+              setPageReset(true);
+              setPage(1);
+            }
           }}
           flex="3"
         />
@@ -64,8 +68,11 @@ const MovieInput = () => {
               searchMovie({ search: term, page: 1, type: e.target.value });
             }
             setType(e.target.value);
-            setPageReset(true);
-            setPage(1);
+
+            if (page > 1) {
+              setPageReset(true);
+              setPage(1);
+            }
           }}
         >
           <option value="movie">Movies</option>
